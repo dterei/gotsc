@@ -17,25 +17,25 @@ whitepaper](http://www.intel.com/content/www/us/en/embedded/training/ia-32-ia-64
 package main
 
 import (
-	"fmt"
-	"github.com/dterei/gotsc"
+  "fmt"
+  "github.com/dterei/gotsc"
 )
 
 const N = 100
 
 func main() {
-	tsc := gotsc.TSCOverhead()
-	fmt.Println("TSC Overhead:", tsc)
+  tsc := gotsc.TSCOverhead()
+  fmt.Println("TSC Overhead:", tsc)
 
-	var avg uint64
-	for i := 0; i < N; i++ {
+  var avg uint64
+  for i := 0; i < N; i++ {
     start := gotsc.BenchStart()
-		// code to evaluate
+    // code to evaluate
     end := gotsc.BenchEnd()
     avg += end - start - tsc
-	}
+  }
 
-	fmt.Println("Cycles:", avg / N)
+  fmt.Println("Cycles:", avg / N)
 }
 ```
 
