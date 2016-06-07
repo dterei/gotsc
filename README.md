@@ -1,5 +1,6 @@
 # gotsc
 
+[![godoc](https://godoc.org/github.com/dterei/gotsc?status.svg)](http://godoc.org/github.com/dterei/gotsc)
 [![BSD3 License](http://img.shields.io/badge/license-BSD3-brightgreen.svg?style=flat)][tl;dr Legal: BSD3]
 
 [tl;dr Legal: BSD3]:
