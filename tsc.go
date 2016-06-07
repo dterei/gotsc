@@ -1,3 +1,7 @@
+// Package gotsc provides access to the timestamp cycle counter on x86-64 for
+// performing close to cycle accurate benchmarking on x86-64. All recent (think
+// since 2010) generation Intel CPU's provide a global, synchronized cycle
+// counter great for benchmarking and time measurement across all cores.
 package gotsc
 
 // BenchStart obtains the cycle counter. It should be used at the start of

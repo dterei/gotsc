@@ -6,7 +6,9 @@
   https://tldrlegal.com/license/bsd-3-clause-license-(revised)
   "BSD3 License"
 
-Golang library for access the CPU timestamp cycle counter (TSC) on x86-64.
+Golang library for access the CPU timestamp cycle counter (TSC) on x86-64. If
+not familar with using the `TSC` for benchmarking, refer to the [Intel
+whitepaper](http://www.intel.com/content/www/us/en/embedded/training/ia-32-ia-64-benchmark-code-execution-paper.html).
 
 ## Usage
 
@@ -18,7 +20,7 @@ import (
 	"github.com/dterei/gotsc"
 )
 
-const N = 10
+const N = 100
 
 func main() {
 	tsc := gotsc.TSCOverhead()
