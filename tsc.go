@@ -25,7 +25,7 @@ func TSCOverhead() uint64 {
 	for i := 0; i < 100000; i++ {
 		t0 = BenchStart()
 		t1 = BenchEnd()
-		if (t1 - t0 < overhead) {
+		if t1-t0 < overhead {
 			overhead = t1 - t0
 		}
 	}
