@@ -1,5 +1,7 @@
 # gotsc
 
+[![Build Status](https://travis-ci.org/dterei/gotsc.svg)](https://travis-ci.org/dterei/gotsc)
+[![Go Report Card](https://goreportcard.com/badge/github.com/dterei/gotsc)](https://goreportcard.com/report/github.com/dterei/gotsc)
 [![godoc](https://godoc.org/github.com/dterei/gotsc?status.svg)](http://godoc.org/github.com/dterei/gotsc)
 [![BSD3 License](http://img.shields.io/badge/license-BSD3-brightgreen.svg?style=flat)][tl;dr Legal: BSD3]
 
