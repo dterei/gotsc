@@ -13,6 +13,19 @@ Golang library for access the CPU timestamp cycle counter (TSC) on x86-64. If
 not familar with using the `TSC` for benchmarking, refer to the [Intel
 whitepaper](http://www.intel.com/content/www/us/en/embedded/training/ia-32-ia-64-benchmark-code-execution-paper.html).
 
+Golang 1.4 or later is currently supported and x86-64 architetcture. The
+package will build on other architectures but all functions will simply return
+0.
+
+## Compared with time.Now()
+
+There are two advantages over the standard golang `time.Now()` function:
+
+1) Measurement is in cycles - for many situations cycle count is a more
+   informative number than wall-clock time.
+2) Lower overhead - `time.Now()` takes ~32K cycles to call while `BenchStart()`
+   and `BenchEnd()` take ~250 cycles.
+
 ## Usage
 
 ``` .go
