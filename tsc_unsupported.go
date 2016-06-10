@@ -16,7 +16,7 @@ package gotsc
 // BenchStart obtains the cycle counter. It should be used at the start of
 // benchmarking some code.
 func BenchStart() uint64 {
-  return 0
+	return 0
 }
 
 // BenchEnd obtains the cycle counter. It should be used at the end of
@@ -24,7 +24,7 @@ func BenchStart() uint64 {
 // reordering of operations between BenchEnd and BenchStart, hence the two
 // functions rather than one.
 func BenchEnd() uint64 {
-  return 0
+	return 0
 }
 
 // TSCOverhead measures the cycle overhead of calling the underlying `rdtsc`
@@ -32,5 +32,5 @@ func BenchEnd() uint64 {
 // value from all your cycle count measurements to accurately benchmark some
 // code.
 func TSCOverhead() uint64 {
-  return 0
+	return 0
 }
