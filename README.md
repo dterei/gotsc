@@ -10,10 +10,10 @@
   "BSD3 License"
 
 Golang library for access the CPU timestamp cycle counter (TSC) on x86-64. If
-not familar with using the `TSC` for benchmarking, refer to the [Intel
-whitepaper][intel] This is designed to be used for benchmarking code, so takes
-steps to prevent instruction reordering across measurement boundaries by the
-CPU.
+not familar with using the `TSC` for benchmarking, refer to the
+[Intel whitepaper][intel1] This is designed to be used for benchmarking code, so
+takes steps to prevent instruction reordering across measurement boundaries by
+the CPU.
 
 Golang 1.4 or later is currently supported and x86-64 architetcture. The
 package will build on other architectures but all functions will simply return
@@ -56,9 +56,8 @@ There are two advantages over the standard golang `time.Now()` function:
    benchmarking is moved outside the timed region, and no code you aren't
    benchmarking is moved into it.
 
-Claim (2) may be a little contensious, so see below.
-
-We use the approach suggested by [Intel][intel1]:
+Claim (2) may be a little contensious, so see below. For benchmarking with the
+TSC, we use the approach suggested by [Intel][intel1]:
 
 ``` .asm
 cpuid
@@ -177,6 +176,13 @@ rdtsc
 It's not clear if this is valuable any more when we have `rdtscp` to avoid
 include the highly variable `cpuid` in our measurement region.
 
+This is a very confusing situation. We keep it simple and stick with the
+recommendation from Intel. This works well, but is a little more expensive due
+to the `cpuid` calls compared to alternatives. However, it also appears to be
+the 'safest', ensuring accurate measurements. For very frequent calls to the
+TSC when benchmarking is not your goal, the standard Go `time.Now()` call is
+very fast, essentially being `lfence; rdtsc`.
+
 ## Converting Cycles to Time
 
 Apparently the ratio of TSC clock to bus clock can be read from
@@ -209,7 +215,7 @@ This library is written and maintained by David Terei, <code@davidterei.com>.
 
 [intel1]: http://www.intel.com/content/www/us/en/embedded/training/ia-32-ia-64-benchmark-code-execution-paper.html
 [intel2]: https://www.ccsl.carleton.ca/~jamuir/rdtscpm1.pdf
-[lrx1]: http://lxr.free-electrons.com/source/include/asm-x86/system.h?v=2.6.25#L403
+[lxr1]: http://lxr.free-electrons.com/source/include/asm-x86/system.h?v=2.6.25#L403
 [lkml1]: https://lkml.org/lkml/2008/1/7/276
 [lxr2]: http://lxr.free-electrons.com/source/arch/x86/include/asm/msr.h#L168
 [lkml2]: https://lkml.org/lkml/2011/5/10/297
