@@ -10,8 +10,8 @@
   "BSD3 License"
 
 Golang library for access the CPU timestamp cycle counter (TSC) on x86-64. If
-not familar with using the `TSC` for benchmarking, refer to the
-[Intel whitepaper][intel1] This is designed to be used for benchmarking code, so
+not familar with using the TSC for benchmarking, refer to the
+[Intel whitepaper][intel1]. This is designed to be used for benchmarking code, so
 takes steps to prevent instruction reordering across measurement boundaries by
 the CPU.
 
@@ -50,9 +50,9 @@ func main() {
 
 There are two advantages over the standard golang `time.Now()` function:
 
-1) Measurement is in cycles - for many situations cycle count is a more
+1. Measurement is in cycles - for many situations cycle count is a more
    informative number than wall-clock time.
-2) Careful use of CPU serializing instructions to ensure no code you are
+2. Careful use of CPU serializing instructions to ensure no code you are
    benchmarking is moved outside the timed region, and no code you aren't
    benchmarking is moved into it.
 
