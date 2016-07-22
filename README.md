@@ -136,6 +136,12 @@ lfence
 rdtsc
 ```
 
+The kernel developer of the older `lfence` both sides approach appears to
+object to this optimization as 'unsafe' due to being a barrier in only one
+direction. The 'modern' thinking appears to be that while this is technically
+true, a microprocessor would never take advantage of this reordering---there is
+no performance reason to do so.
+
 The Akaros project [investigated][arakos] a number of alternative approaches
 (including all the above issues). Eventually taking the modern Linux approach
 and suggesting the following:
@@ -185,13 +191,28 @@ very fast, essentially being `lfence; rdtsc`.
 
 ## Converting Cycles to Time
 
-Apparently the ratio of TSC clock to bus clock can be read from
-`MSR_PLATFORM_INFO[15:8]` (see Intel 64 and IA-32 Architectures Software
-Developer’s Manual, Vol. 3C 35-53 (pag. 2852)).
+To convert from cycles to wall-clock time we need to know TSC frequency.
+Frequency scaling on modern Intel chips doesn't affect the TSC.
 
-Perhaps for historical reasons, or wider hardware support, Linux appears to
-deteremine the TSC clock speed through a [calibration] [lxr3] against other
-timers.
+Sadly, the only way to determine the TSC frequency appears to be through a MSR
+using the `rdmsr` instruction. This instruction is privileged and can't be
+executed from user-space.
+
+If we could, we want to access the `MSR_PLATFORM_INFO`:
+
+> Register Name: MSR_PLATFORM_INFO [15:8]
+> Description: Package Maximum Non-Turbo Ratio (R/O)
+>              The is the ratio of the frequency that invariant TSC runs at.
+>              Frequency = ratio * 100 MHz.
+
+The multiplicative factor of `100 MHz` varies across architectures. Luckily, it
+appears to be `100 MHz` on all Intel architectures except Nehalem, for which it
+is `133.3 MHz`.
+
+If this method fails or is unavailable, Linux appears to determine the TSC
+clock speed through a [calibration] [lxr3] against hardware timers.
+
+For now, we don't provide the ability to convert cycles to time.
 
 ## Licensing
 
